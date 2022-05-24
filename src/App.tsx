@@ -1,8 +1,16 @@
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const S_Video = styled.video`
   width: 100%;
   height: 100%;
+  z-index: 100;
+`
+
+const S_Canvas = styled.canvas`
+  opacity: 0;
+  position: absolute;
+  z-index: 0;
 `
 
 const constraints: MediaStreamConstraints = {
@@ -24,14 +32,15 @@ async function setVideoSource() {
 
 const App = () => {
 
-  try {
+  useEffect(() => {
     setVideoSource();
-  } catch (error) {
-    console.log(error);
-  }
+  }, []) 
 
   return (
-    <S_Video autoPlay />
+    <>
+      <S_Video autoPlay />
+      <S_Canvas />
+    </>
   );
 
 }
